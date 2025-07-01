@@ -4,6 +4,7 @@ import CachedImage from '@app/components/Common/CachedImage';
 import ConfirmButton from '@app/components/Common/ConfirmButton';
 import RequestModal from '@app/components/RequestModal';
 import StatusBadge from '@app/components/StatusBadge';
+import PartiallyAvailableEpisodes from '@app/components/RequestList/PartiallyAvailableEpisodes';
 import useDeepLinks from '@app/hooks/useDeepLinks';
 import useSettings from '@app/hooks/useSettings';
 import { Permission, useUser } from '@app/hooks/useUser';
@@ -490,6 +491,14 @@ const RequestItem = ({ request, revalidateList }: RequestItemProps) => {
                     ))}
                   </div>
                 </div>
+              )}
+              {!isMovie(title) && 
+                requestData.media[requestData.is4k ? 'status4k' : 'status'] === MediaStatus.PARTIALLY_AVAILABLE && (
+                <PartiallyAvailableEpisodes
+                  tvDetails={title}
+                  mediaInfo={requestData.media}
+                  is4k={requestData.is4k}
+                />
               )}
             </div>
           </div>
